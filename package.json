@@ -1,6 +1,6 @@
 {
-    "name": "zhf.str-type",
-    "version": "1.0.1",
+    "name": "zhf.check-str",
+    "version": "1.0.0",
     "description": "no description",
     "main": "dist/index.min.js",
     "scripts": {
@@ -11,14 +11,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/zhouhuafei/zhf.str-type.git"
+        "url": "git+https://github.com/zhouhuafei/zhf.check-str.git"
     },
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/zhouhuafei/zhf.str-type/issues"
+        "url": "https://github.com/zhouhuafei/zhf.check-str/issues"
     },
-    "homepage": "https://github.com/zhouhuafei/zhf.str-type#readme",
+    "homepage": "https://github.com/zhouhuafei/zhf.check-str#readme",
     "devDependencies": {
         "babel-eslint": "^8.0.2",
         "babel-preset-env": "^1.6.0",
