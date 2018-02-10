@@ -84,6 +84,11 @@
             const reg = /^[\u4e00-\u9fa5]+$/;
             return reg.test(handleValue(value));
         },
+        // 是否是英文字母
+        isEnglish(value) {
+            const reg = /^[a-zA-Z]+$/;
+            return reg.test(handleValue(value));
+        },
         // 是否是双字节字符(汉字也是双字节字符)
         isDoubleByteChar(value) {
             // 在 ASCII 中，0-31 范围内的控制字符是特殊的、不可见的字符。这些字符很少被用在 JavaScript 字符串中，所以一个正则表达式如果包含这些字符的，很有可能一个错误。
