@@ -11,7 +11,7 @@
     }
 })('checkStr', function () {
     function handleValue(value) {
-        // return value.replace(/(^\s*)|(\s*$)/g, '');
+        // return value.toString().replace(/(^\s*)|(\s*$)/g, '');
         return value.toString().trim(); // 去首尾空格
     }
 
