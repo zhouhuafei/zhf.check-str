@@ -3,7 +3,6 @@
 # 注意
 * 主要是用于验证表单form相关的标签对应的value里输入的都是什么值
 * 也就是说，是用来验证字符串的
-
 ```
 const checkStr = require('zhf.check-str');
 checkStr.isEmpty(''); // true
