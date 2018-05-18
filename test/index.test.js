@@ -25,14 +25,24 @@ test(`checkStr.isNegativeInteger('-10'); // true`, () => {
 });
 
 test(`checkStr.isFloat('10.000', 3); // true`, () => {
+    expect(checkStr.isFloat('0.00', 2)).toEqual(true);
     expect(checkStr.isFloat('10.000', 3)).toEqual(true);
 });
 
 test(`checkStr.isPositiveFloat('-10.000', 3); // false`, () => {
+    expect(checkStr.isPositiveFloat('', 2)).toEqual(false);
+    expect(checkStr.isPositiveFloat('呵呵', 2)).toEqual(false);
+    expect(checkStr.isPositiveFloat('0.00', 2)).toEqual(false);
+    expect(checkStr.isPositiveFloat('0.01', 2)).toEqual(true);
+    expect(checkStr.isPositiveFloat('10.000', 3)).toEqual(true);
     expect(checkStr.isPositiveFloat('-10.000', 3)).toEqual(false);
 });
 
 test(`checkStr.isNegativeFloat('-10.000', 3); // true`, () => {
+    expect(checkStr.isNegativeFloat('', 2)).toEqual(false);
+    expect(checkStr.isNegativeFloat('呵呵', 2)).toEqual(false);
+    expect(checkStr.isNegativeFloat('-0.00', 2)).toEqual(false);
+    expect(checkStr.isNegativeFloat('-0.01', 2)).toEqual(true);
     expect(checkStr.isNegativeFloat('-10.000', 3)).toEqual(true);
 });
 
