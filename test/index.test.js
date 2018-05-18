@@ -13,6 +13,7 @@ test(`checkStr.isNumber('0.01'); // true`, () => {
 });
 
 test(`checkStr.isPositiveInteger('10'); // true`, () => {
+    expect(checkStr.isPositiveInteger('0')).toEqual(false); // 正整数不包含0
     expect(checkStr.isPositiveInteger('10')).toEqual(true);
 });
 
@@ -21,6 +22,7 @@ test(`checkStr.isPositiveInteger('-10'); // false`, () => {
 });
 
 test(`checkStr.isNegativeInteger('-10'); // true`, () => {
+    expect(checkStr.isNegativeInteger('-0')).toEqual(false); // 负整数不包含0
     expect(checkStr.isNegativeInteger('-10')).toEqual(true);
 });
 
@@ -32,7 +34,7 @@ test(`checkStr.isFloat('10.000', 3); // true`, () => {
 test(`checkStr.isPositiveFloat('-10.000', 3); // false`, () => {
     expect(checkStr.isPositiveFloat('', 2)).toEqual(false);
     expect(checkStr.isPositiveFloat('呵呵', 2)).toEqual(false);
-    expect(checkStr.isPositiveFloat('0.00', 2)).toEqual(false);
+    expect(checkStr.isPositiveFloat('0.00', 2)).toEqual(false); // 正浮点数不包含0
     expect(checkStr.isPositiveFloat('0.01', 2)).toEqual(true);
     expect(checkStr.isPositiveFloat('10.000', 3)).toEqual(true);
     expect(checkStr.isPositiveFloat('-10.000', 3)).toEqual(false);
@@ -41,7 +43,7 @@ test(`checkStr.isPositiveFloat('-10.000', 3); // false`, () => {
 test(`checkStr.isNegativeFloat('-10.000', 3); // true`, () => {
     expect(checkStr.isNegativeFloat('', 2)).toEqual(false);
     expect(checkStr.isNegativeFloat('呵呵', 2)).toEqual(false);
-    expect(checkStr.isNegativeFloat('-0.00', 2)).toEqual(false);
+    expect(checkStr.isNegativeFloat('-0.00', 2)).toEqual(false); // 负浮点数不包含0
     expect(checkStr.isNegativeFloat('-0.01', 2)).toEqual(true);
     expect(checkStr.isNegativeFloat('-10.000', 3)).toEqual(true);
 });
