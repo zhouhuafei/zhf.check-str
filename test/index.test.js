@@ -24,8 +24,16 @@ test(`checkStr.isNegativeInteger('-10'); // true`, () => {
     expect(checkStr.isNegativeInteger('-10')).toEqual(true);
 });
 
-test(`checkStr.isPositiveFloat('10.000', 3); // true`, () => {
-    expect(checkStr.isPositiveFloat('10.000', 3)).toEqual(true);
+test(`checkStr.isFloat('10.000', 3); // true`, () => {
+    expect(checkStr.isFloat('10.000', 3)).toEqual(true);
+});
+
+test(`checkStr.isPositiveFloat('-10.000', 3); // false`, () => {
+    expect(checkStr.isPositiveFloat('-10.000', 3)).toEqual(false);
+});
+
+test(`checkStr.isNegativeFloat('-10.000', 3); // true`, () => {
+    expect(checkStr.isNegativeFloat('-10.000', 3)).toEqual(true);
 });
 
 test(`checkStr.isPhoneNum('15111111111'); // true`, () => {
