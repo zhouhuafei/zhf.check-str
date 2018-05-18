@@ -11,7 +11,7 @@ checkStr.isNumber('0.01'); // true
 checkStr.isPositiveInteger('10'); // true
 checkStr.isPositiveInteger('-10'); // false
 checkStr.isNegativeInteger('-10'); // true
-checkStr.isKeepDecimal('10.000', 3); // true
+checkStr.isPositiveFloat('10.000', 3); // true
 checkStr.isPhoneNum('15111111111'); // true
 checkStr.isEmail('1123486116@qq.com'); // true
 checkStr.isIp('192.168.51.93'); // true

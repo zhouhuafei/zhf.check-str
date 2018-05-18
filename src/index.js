@@ -44,9 +44,19 @@
             const reg = /^-[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
-        // 是否是保留了place位小数(默认两位)
-        isKeepDecimal(value, place = 2) {
+        // 是否是浮点数(默认两位)
+        isFloat(value, place = 2) {
+            const reg = new RegExp(`^(-)?\\d+\\.\\d{${place}}$`);
+            return reg.test(handleValue(value));
+        },
+        // 是否是正浮点数(默认两位)
+        isPositiveFloat(value, place = 2) {
             const reg = new RegExp(`^\\d+\\.\\d{${place}}$`);
+            return reg.test(handleValue(value));
+        },
+        // 是否是负浮点数(默认两位)
+        isNegativeFloat(value, place = 2) {
+            const reg = new RegExp(`^-\\d+\\.\\d{${place}}$`);
             return reg.test(handleValue(value));
         },
         // 是否是手机号(复杂验证)
