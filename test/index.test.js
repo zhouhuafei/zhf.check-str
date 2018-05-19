@@ -10,6 +10,7 @@ test(`checkStr.isZero('0'); // true`, () => {
 
 test(`checkStr.isNumber('0.01'); // true`, () => {
     expect(checkStr.isNumber('0.01')).toEqual(true);
+    expect(checkStr.isNumber('-0.01')).toEqual(true);
 });
 
 test(`checkStr.isPositiveInteger('10'); // true`, () => {

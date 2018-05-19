@@ -35,7 +35,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         // 是否是数字
         isNumber: function isNumber(value) {
-            var reg = /^\d+(\.\d+)?$/;
+            var reg = /^(-)?\d+(\.\d+)?$/;
             return reg.test(handleValue(value));
         },
 

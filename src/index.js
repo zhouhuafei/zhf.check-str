@@ -26,7 +26,7 @@
         },
         // 是否是数字
         isNumber(value) {
-            const reg = /^\d+(\.\d+)?$/;
+            const reg = /^(-)?\d+(\.\d+)?$/;
             return reg.test(handleValue(value));
         },
         // 是否是整数 包含0
