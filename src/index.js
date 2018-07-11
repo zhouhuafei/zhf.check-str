@@ -69,7 +69,7 @@
         },
         // 是否是手机号(复杂验证)
         isPhoneNum(value) {
-            const reg = /^1[34578]\d{9}$/;
+            const reg = /^1[3456789]\d{9}$/;
             return reg.test(handleValue(value));
         },
         // 是否是手机号(简单验证)

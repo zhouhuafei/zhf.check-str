@@ -91,7 +91,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         // 是否是手机号(复杂验证)
         isPhoneNum: function isPhoneNum(value) {
-            var reg = /^1[34578]\d{9}$/;
+            var reg = /^1[3456789]\d{9}$/;
             return reg.test(handleValue(value));
         },
 
