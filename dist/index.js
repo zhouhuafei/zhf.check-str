@@ -191,7 +191,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         // 是否是html标签
         isContainsHtmlTag: function isContainsHtmlTag(value) {
-            var reg = /^<[^>]*>|<\/[^>]*>$/;
+            var reg = /<[^<>]+>/g;
             return reg.test(handleValue(value));
         },
 

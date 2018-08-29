@@ -3,7 +3,7 @@
 # 注意
 * 主要是用于验证表单form相关的标签对应的value里输入的都是什么值
 * 也就是说，是用来验证字符串的
-* 所有的字符串都会先经过去除首尾空格处理
+* 所有的字符串都会先经过去除首尾空格处理，所以不适用于对密码框的值检测是否为空，因为密码的首尾一般都是可以包含空字符串的。
 ```
 const checkStr = require('zhf.check-str');
 
@@ -52,6 +52,8 @@ checkStr.isContainsHtmlTag('<input>'); // true // 是否包含html标签
 checkStr.isContainsHtmlTag('<input/>'); // true
 checkStr.isContainsHtmlTag('<div>是否包含html标签</div>'); // true
 checkStr.isContainsHtmlTag('是否包含html标签</div>'); // true
+checkStr.isContainsHtmlTag('是否包含html标签<div></div>是否包含html标签'); // true
+checkStr.isContainsHtmlTag('是否包含html标签<>是否包含html标签'); // false
 checkStr.isDate('2018/08/29'); // true // 是否是日期格式
 checkStr.isDate('2018-08-29'); // true
 checkStr.isTime('19:08:00'); // true // 是否是时间格式

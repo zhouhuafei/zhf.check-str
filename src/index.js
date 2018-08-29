@@ -154,7 +154,7 @@
         },
         // 是否是html标签
         isContainsHtmlTag(value) {
-            const reg = /^<[^>]*>|<\/[^>]*>$/;
+            const reg = /<[^<>]+>/g;
             return reg.test(handleValue(value));
         },
         // 是否是邮政编码

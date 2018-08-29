@@ -82,7 +82,8 @@ test(`other`, () => {
     expect(checkStr.isContainsHtmlTag('<input/>')).toEqual(true);
     expect(checkStr.isContainsHtmlTag('<div>是否包含html标签</div>')).toEqual(true);
     expect(checkStr.isContainsHtmlTag('是否包含html标签</div>')).toEqual(true);
-    // expect(checkStr.isContainsHtmlTag('是否包含html标签<div></div>是否包含html标签')).toEqual(true);
+    expect(checkStr.isContainsHtmlTag('是否包含html标签<div></div>是否包含html标签')).toEqual(true);
+    expect(checkStr.isContainsHtmlTag('是否包含html标签<>是否包含html标签')).toEqual(false);
     expect(checkStr.isDate('2018/08/29')).toEqual(true); // 是否是日期格式
     expect(checkStr.isDate('2018-08-29')).toEqual(true);
     expect(checkStr.isTime('19:08:00')).toEqual(true); // 是否是时间格式
