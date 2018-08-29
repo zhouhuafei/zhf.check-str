@@ -41,7 +41,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         // 是否是整数 包含0
         isInteger: function isInteger(value) {
-            var reg = /^\d+$/;
+            var reg = /^(-)?\d+$/;
             return reg.test(handleValue(value));
         },
 
@@ -186,12 +186,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         // 是否是网址
         isUrl: function isUrl(value) {
             var reg = /^(?:http(?:s|):\/\/|)(?:(?:\w*?)\.|)(?:\w*?)\.(?:\w{2,4})(?:\?.*|\/.*|)$/;
-            return reg.test(handleValue(value));
-        },
-
-        // 是否包含html标签
-        isContainsHtmlTag: function isContainsHtmlTag(value) {
-            var reg = /<[^<>]+>/g;
             return reg.test(handleValue(value));
         },
 

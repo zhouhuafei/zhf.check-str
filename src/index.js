@@ -31,7 +31,7 @@
         },
         // 是否是整数 包含0
         isInteger(value) {
-            const reg = /^\d+$/;
+            const reg = /^(-)?\d+$/;
             return reg.test(handleValue(value));
         },
         // 是否是正整数 不包含0
@@ -150,11 +150,6 @@
         // 是否是网址
         isUrl(value) {
             const reg = /^(?:http(?:s|):\/\/|)(?:(?:\w*?)\.|)(?:\w*?)\.(?:\w{2,4})(?:\?.*|\/.*|)$/;
-            return reg.test(handleValue(value));
-        },
-        // 是否包含html标签
-        isContainsHtmlTag(value) {
-            const reg = /<[^<>]+>/g;
             return reg.test(handleValue(value));
         },
         // 是否是邮政编码

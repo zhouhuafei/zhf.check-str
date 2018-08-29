@@ -11,6 +11,11 @@ checkStr.isEmpty(''); // true
 checkStr.isZero('0'); // true
 checkStr.isNumber('0.01'); // true
 checkStr.isNumber('-0.01'); // true
+checkStr.isInteger('-0'); // true // 是否是整数
+checkStr.isInteger('-1'); // true
+checkStr.isInteger('1'); // true
+checkStr.isInteger('1.0'); // false
+checkStr.isInteger('1.01'); // false
 checkStr.isPositiveInteger('0'); // false // 正整数不包含0
 checkStr.isPositiveInteger('10'); // true
 checkStr.isPositiveInteger('-10'); // false
@@ -44,16 +49,11 @@ checkStr.isChinese('汉字'); // true // 是否是中文
 checkStr.isChinese('english'); // false
 checkStr.isEnglish('english'); // true // 是否是英文
 checkStr.isEnglish('汉字'); // false
+checkStr.isDoubleByteChar('汉字'); // true // 是否是双字节字符(汉字也是双字节字符)
 checkStr.isLowercase('english'); // true // 是否小写
 checkStr.isLowercase('English'); // false
 checkStr.isUppercase('ENGLISH'); // true // 是否大写
 checkStr.isUppercase('English'); // false
-checkStr.isContainsHtmlTag('<input>'); // true // 是否包含html标签
-checkStr.isContainsHtmlTag('<input/>'); // true
-checkStr.isContainsHtmlTag('<div>是否包含html标签</div>'); // true
-checkStr.isContainsHtmlTag('是否包含html标签</div>'); // true
-checkStr.isContainsHtmlTag('是否包含html标签<div></div>是否包含html标签'); // true
-checkStr.isContainsHtmlTag('是否包含html标签<>是否包含html标签'); // false
 checkStr.isDate('2018/08/29'); // true // 是否是日期格式
 checkStr.isDate('2018-08-29'); // true
 checkStr.isTime('19:08:00'); // true // 是否是时间格式
@@ -63,4 +63,5 @@ checkStr.isIdCardNum('23333319930214333X'); // true // 是否是身份证
 checkStr.isIdCardNumEasy('233333333333333333'); // true // 是否是身份证简单版
 checkStr.isIdCardNumEasy('23333333333333333x'); // true
 checkStr.isIdCardNumEasy('23333333333333333X'); // true
+checkStr.isPostalCode('201600'); // true // 是否是邮政编码
 ```

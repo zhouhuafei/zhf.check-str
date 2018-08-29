@@ -11,6 +11,11 @@ test(`checkStr.isZero`, () => {
 test(`checkStr.isNumber`, () => {
     expect(checkStr.isNumber('0.01')).toEqual(true);
     expect(checkStr.isNumber('-0.01')).toEqual(true);
+    expect(checkStr.isInteger('-0')).toEqual(true); // 是否是整数
+    expect(checkStr.isInteger('-1')).toEqual(true);
+    expect(checkStr.isInteger('1')).toEqual(true);
+    expect(checkStr.isInteger('1.0')).toEqual(false);
+    expect(checkStr.isInteger('1.01')).toEqual(false);
 });
 
 test(`checkStr.isPositiveInteger`, () => {
@@ -74,16 +79,11 @@ test(`other`, () => {
     expect(checkStr.isChinese('english')).toEqual(false);
     expect(checkStr.isEnglish('english')).toEqual(true); // 是否是英文
     expect(checkStr.isEnglish('汉字')).toEqual(false);
+    expect(checkStr.isDoubleByteChar('汉字')).toEqual(true); // 是否是双字节字符(汉字也是双字节字符)
     expect(checkStr.isLowercase('english')).toEqual(true); // 是否小写
     expect(checkStr.isLowercase('English')).toEqual(false);
     expect(checkStr.isUppercase('ENGLISH')).toEqual(true); // 是否大写
     expect(checkStr.isUppercase('English')).toEqual(false);
-    expect(checkStr.isContainsHtmlTag('<input>')).toEqual(true); // 是否包含html标签
-    expect(checkStr.isContainsHtmlTag('<input/>')).toEqual(true);
-    expect(checkStr.isContainsHtmlTag('<div>是否包含html标签</div>')).toEqual(true);
-    expect(checkStr.isContainsHtmlTag('是否包含html标签</div>')).toEqual(true);
-    expect(checkStr.isContainsHtmlTag('是否包含html标签<div></div>是否包含html标签')).toEqual(true);
-    expect(checkStr.isContainsHtmlTag('是否包含html标签<>是否包含html标签')).toEqual(false);
     expect(checkStr.isDate('2018/08/29')).toEqual(true); // 是否是日期格式
     expect(checkStr.isDate('2018-08-29')).toEqual(true);
     expect(checkStr.isTime('19:08:00')).toEqual(true); // 是否是时间格式
@@ -93,4 +93,5 @@ test(`other`, () => {
     expect(checkStr.isIdCardNumEasy('233333333333333333')).toEqual(true); // 是否是身份证简单版
     expect(checkStr.isIdCardNumEasy('23333333333333333x')).toEqual(true);
     expect(checkStr.isIdCardNumEasy('23333333333333333X')).toEqual(true);
+    expect(checkStr.isPostalCode('201600')).toEqual(true); // 是否是邮政编码
 });
