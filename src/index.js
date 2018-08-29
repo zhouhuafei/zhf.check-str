@@ -152,7 +152,7 @@
             const reg = /^(?:http(?:s|):\/\/|)(?:(?:\w*?)\.|)(?:\w*?)\.(?:\w{2,4})(?:\?.*|\/.*|)$/;
             return reg.test(handleValue(value));
         },
-        // 是否是html标签
+        // 是否包含html标签
         isContainsHtmlTag(value) {
             const reg = /<[^<>]+>/g;
             return reg.test(handleValue(value));
