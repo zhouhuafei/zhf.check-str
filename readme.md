@@ -10,8 +10,8 @@ const checkStr = require('zhf.check-str');
 checkStr.isEmpty(''); // true
 checkStr.isEmpty(' '); // true
 checkStr.isEmpty('  '); // true
-checkStr.isZero(''); // false
 checkStr.isZero(false); // false
+checkStr.isZero(''); // false
 checkStr.isZero('0'); // true
 checkStr.isZero('-0'); // true
 checkStr.isZero('00'); // true
