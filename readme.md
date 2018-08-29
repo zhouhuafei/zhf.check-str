@@ -3,12 +3,24 @@
 # 注意
 * 主要是用于验证表单form相关的标签对应的value里输入的都是什么值
 * 也就是说，是用来验证字符串的
-* 所有的字符串都会先经过去除首尾空格处理，所以不适用于对密码框的值检测是否为空，因为密码的首尾一般都是可以包含空字符串的。
+* 如果入参不是字符串，会先转成字符串，然后去除字符串的首尾空格，再进行验证。所以是否为空(isEmpty)的检测不适用于密码，因为密码的首尾一般都是可以包含空字符串的。
 ```
 const checkStr = require('zhf.check-str');
 
 checkStr.isEmpty(''); // true
+checkStr.isEmpty(' '); // true
+checkStr.isEmpty('  '); // true
+checkStr.isZero(''); // false
+checkStr.isZero(false); // false
 checkStr.isZero('0'); // true
+checkStr.isZero('-0'); // true
+checkStr.isZero('00'); // true
+checkStr.isZero('-00'); // true
+checkStr.isZero('000'); // true
+checkStr.isZero('0.00'); // true
+checkStr.isZero('-0.00'); // true
+checkStr.isZero('00.00'); // true
+checkStr.isZero('-00.00'); // true
 checkStr.isNumber('0.01'); // true
 checkStr.isNumber('-0.01'); // true
 checkStr.isInteger('-0'); // true // 是否是整数

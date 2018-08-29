@@ -22,7 +22,11 @@
         },
         // 是否是0
         isZero(value) {
-            return handleValue(value) === '0';
+            value = handleValue(value);
+            if (value !== '') {
+                value = Number(value).toString();
+            }
+            return value === '0';
         },
         // 是否是数字
         isNumber(value) {

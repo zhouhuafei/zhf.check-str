@@ -30,7 +30,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
         // 是否是0
         isZero: function isZero(value) {
-            return handleValue(value) === '0';
+            value = handleValue(value);
+            if (value !== '') {
+                value = Number(value).toString();
+            }
+            return value === '0';
         },
 
         // 是否是数字

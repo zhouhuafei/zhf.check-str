@@ -2,10 +2,22 @@ const checkStr = require('../dist/index.min');
 
 test(`checkStr.isEmpty`, () => {
     expect(checkStr.isEmpty('')).toEqual(true);
+    expect(checkStr.isEmpty(' ')).toEqual(true);
+    expect(checkStr.isEmpty('  ')).toEqual(true);
 });
 
 test(`checkStr.isZero`, () => {
+    expect(checkStr.isZero(false)).toEqual(false);
+    expect(checkStr.isZero('')).toEqual(false);
     expect(checkStr.isZero('0')).toEqual(true);
+    expect(checkStr.isZero('-0')).toEqual(true);
+    expect(checkStr.isZero('00')).toEqual(true);
+    expect(checkStr.isZero('-00')).toEqual(true);
+    expect(checkStr.isZero('000')).toEqual(true);
+    expect(checkStr.isZero('0.00')).toEqual(true);
+    expect(checkStr.isZero('-0.00')).toEqual(true);
+    expect(checkStr.isZero('00.00')).toEqual(true);
+    expect(checkStr.isZero('-00.00')).toEqual(true);
 });
 
 test(`checkStr.isNumber`, () => {
