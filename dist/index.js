@@ -65,6 +65,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(handleValue(value));
         },
 
+        // 是否是浮点数(不限位数) 包含0
+        isFloatNoLimitDigit: function isFloatNoLimitDigit(value) {
+            var reg = new RegExp('^(-)?\\d+\\.\\d+$');
+            return reg.test(handleValue(value));
+        },
+
         // 是否是正浮点数(默认两位) 不包含0
         isPositiveFloat: function isPositiveFloat(value) {
             var place = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
@@ -77,11 +83,31 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(v);
         },
 
+        // 是否是正浮点数(不限位数) 不包含0
+        isPositiveFloatNoLimitDigit: function isPositiveFloatNoLimitDigit(value) {
+            var reg = new RegExp('^\\d+\\.\\d+$');
+            var v = handleValue(value);
+            if (Number(v) === 0) {
+                return false;
+            }
+            return reg.test(v);
+        },
+
         // 是否是负浮点数(默认两位) 不包含0
         isNegativeFloat: function isNegativeFloat(value) {
             var place = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
 
             var reg = new RegExp('^-\\d+\\.\\d{' + place + '}$');
+            var v = handleValue(value);
+            if (Number(v) === 0) {
+                return false;
+            }
+            return reg.test(v);
+        },
+
+        // 是否是负浮点数(不限位数) 不包含0
+        isNegativeFloatNoLimitDigit: function isNegativeFloatNoLimitDigit(value) {
+            var reg = new RegExp('^-\\d+\\.\\d+$');
             var v = handleValue(value);
             if (Number(v) === 0) {
                 return false;
@@ -164,7 +190,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         },
 
         // 是否是html标签
-        isHtml: function isHtml(value) {
+        isContainsHtmlTag: function isContainsHtmlTag(value) {
             var reg = /^<[^>]*>|<\/[^>]*>$/;
             return reg.test(handleValue(value));
         },

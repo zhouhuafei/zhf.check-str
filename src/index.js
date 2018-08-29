@@ -49,6 +49,11 @@
             const reg = new RegExp(`^(-)?\\d+\\.\\d{${place}}$`);
             return reg.test(handleValue(value));
         },
+        // 是否是浮点数(不限位数) 包含0
+        isFloatNoLimitDigit(value) {
+            const reg = new RegExp(`^(-)?\\d+\\.\\d+$`);
+            return reg.test(handleValue(value));
+        },
         // 是否是正浮点数(默认两位) 不包含0
         isPositiveFloat(value, place = 2) {
             const reg = new RegExp(`^\\d+\\.\\d{${place}}$`);
@@ -58,9 +63,27 @@
             }
             return reg.test(v);
         },
+        // 是否是正浮点数(不限位数) 不包含0
+        isPositiveFloatNoLimitDigit(value) {
+            const reg = new RegExp(`^\\d+\\.\\d+$`);
+            const v = handleValue(value);
+            if (Number(v) === 0) {
+                return false;
+            }
+            return reg.test(v);
+        },
         // 是否是负浮点数(默认两位) 不包含0
         isNegativeFloat(value, place = 2) {
             const reg = new RegExp(`^-\\d+\\.\\d{${place}}$`);
+            const v = handleValue(value);
+            if (Number(v) === 0) {
+                return false;
+            }
+            return reg.test(v);
+        },
+        // 是否是负浮点数(不限位数) 不包含0
+        isNegativeFloatNoLimitDigit(value) {
+            const reg = new RegExp(`^-\\d+\\.\\d+$`);
             const v = handleValue(value);
             if (Number(v) === 0) {
                 return false;
@@ -130,7 +153,7 @@
             return reg.test(handleValue(value));
         },
         // 是否是html标签
-        isHtml(value) {
+        isContainsHtmlTag(value) {
             const reg = /^<[^>]*>|<\/[^>]*>$/;
             return reg.test(handleValue(value));
         },
