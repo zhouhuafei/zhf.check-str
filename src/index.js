@@ -39,7 +39,7 @@
             const reg = /^[-]?\d+(\.\d+)?$/;
             return reg.test(handleValue(value));
         },
-        // 是否是数字(包含0)(无多余的0前缀)
+        // 是否是数字(包含0)(无多余的0前缀)待续...
         isNumberNoZeroPrefix(value) {
             value = handleValue(value); // 转成字符串并去除首尾空格
             const reg = /^[-+]?\d+(\.\d+)?$/;

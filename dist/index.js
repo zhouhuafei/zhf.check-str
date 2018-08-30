@@ -50,7 +50,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(handleValue(value));
         },
 
-        // 是否是数字(包含0)(无多余的0前缀)
+        // 是否是数字(包含0)(无多余的0前缀)待续...
         isNumberNoZeroPrefix: function isNumberNoZeroPrefix(value) {
             value = handleValue(value); // 转成字符串并去除首尾空格
             var reg = /^[-+]?\d+(\.\d+)?$/;
