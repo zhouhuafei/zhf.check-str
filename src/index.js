@@ -39,15 +39,28 @@
             const reg = /^[-]?\d+(\.\d+)?$/;
             return reg.test(handleValue(value));
         },
-        // 是否是数字(包含0)(无多余的0前缀)待续...
+        // 是否是数字(包含0)(无多余的0前缀)
         isNumberNoZeroPrefix(value) {
             value = handleValue(value); // 转成字符串并去除首尾空格
             const reg = /^[-+]?\d+(\.\d+)?$/;
             const isNumber = reg.test(value); // 先通过数字的验证
-            if (isNumber && (value[0] === '+' || value[0] === '-')) { // 剔除符号（+，-）
-                value = value.substring(1);
+            let result = false;
+            if (isNumber) { // 是数字
+                if (value[0] === '+' || value[0] === '-') { // 剔除符号（+，-）
+                    value = value.substring(1);
+                }
+                value = value.split('.');
+                // 如果小数点前面的数字位数大于1，且第一个数字不是0，则表示无0前缀。
+                if (value[0].length > 1) {
+                    if (value[0][0] !== '0') {
+                        result = true;
+                    }
+                }
+                if (value[0].length === 1) {
+                    result = true;
+                }
             }
-            return value.split('.')[0].length > 0 && value[0] !== '0'; // 如果小数点前面的数字位数大于1，且第一个数字不是0，则表示无0前缀。
+            return result;
         },
         // 是否是整数(包含0)
         isInteger(value) {
@@ -90,18 +103,11 @@
             const reg = new RegExp(`^[-]?\\d+\\.\\d{${place}}$`);
             return reg.test(handleValue(value));
         },
-        // 是否是浮点数(不限位数)(包含0)
-        // isFloatNoLimitDigit(value) {
-        //     const reg = new RegExp(`^[-+]?\\d+\\.\\d+$`);
-        //     return reg.test(handleValue(value));
-        // },
-        // 是否是浮点数(不限位数)(包含0)(无正符号)
-        // isFloatNoLimitDigitNoPlusSign(value) {
-        //     const reg = new RegExp(`^[-]?\\d+\\.\\d+$`);
-        //     return reg.test(handleValue(value));
-        // },
-        // 是否是正浮点数(默认两位)(不包含0)
-        isPositiveFloat(value, place = 2) {
+        // 是否是正浮点数(默认不限位数)(不包含0)
+        isPositiveFloat(value, place) {
+            if (isNaN(place) || (!isNaN(place) && Number(place) < 1)) { // 如果是非法字符或者数值小于1，则不限制位数
+                place = `1,`;
+            }
             const reg = new RegExp(`^[+]?\\d+\\.\\d{${place}}$`);
             const v = handleValue(value);
             if (Number(v) === 0) {
@@ -109,8 +115,11 @@
             }
             return reg.test(v);
         },
-        // 是否是正浮点数(默认两位)(不包含0)(无正符号)
-        isPositiveFloatNoPlusSign(value, place = 2) {
+        // 是否是正浮点数(默认不限位数)(不包含0)(无正符号)
+        isPositiveFloatNoPlusSign(value, place) {
+            if (isNaN(place) || (!isNaN(place) && Number(place) < 1)) { // 如果是非法字符或者数值小于1，则不限制位数
+                place = `1,`;
+            }
             const reg = new RegExp(`^\\d+\\.\\d{${place}}$`);
             const v = handleValue(value);
             if (Number(v) === 0) {
@@ -118,26 +127,11 @@
             }
             return reg.test(v);
         },
-        // 是否是正浮点数(不限位数)(不包含0)
-        // isPositiveFloatNoLimitDigit(value) {
-        //     const reg = new RegExp(`^[+]?\\d+\\.\\d+$`);
-        //     const v = handleValue(value);
-        //     if (Number(v) === 0) {
-        //         return false;
-        //     }
-        //     return reg.test(v);
-        // },
-        // 是否是正浮点数(不限位数)(不包含0)(无正符号)
-        // isPositiveFloatNoLimitDigitNoPlusSign(value) {
-        //     const reg = new RegExp(`^\\d+\\.\\d+$`);
-        //     const v = handleValue(value);
-        //     if (Number(v) === 0) {
-        //         return false;
-        //     }
-        //     return reg.test(v);
-        // },
-        // 是否是负浮点数(默认两位)(不包含0)
-        isNegativeFloat(value, place = 2) {
+        // 是否是负浮点数(默认不限位数)(不包含0)
+        isNegativeFloat(value, place) {
+            if (isNaN(place) || (!isNaN(place) && Number(place) < 1)) { // 如果是非法字符或者数值小于1，则不限制位数
+                place = `1,`;
+            }
             const reg = new RegExp(`^-\\d+\\.\\d{${place}}$`);
             const v = handleValue(value);
             if (Number(v) === 0) {
@@ -145,15 +139,6 @@
             }
             return reg.test(v);
         },
-        // 是否是负浮点数(不限位数)(不包含0)
-        // isNegativeFloatNoLimitDigit(value) {
-        //     const reg = new RegExp(`^-\\d+\\.\\d+$`);
-        //     const v = handleValue(value);
-        //     if (Number(v) === 0) {
-        //         return false;
-        //     }
-        //     return reg.test(v);
-        // },
         // 是否是手机号(复杂验证)
         isPhoneNum(value) {
             const reg = /^1[3456789]\d{9}$/;

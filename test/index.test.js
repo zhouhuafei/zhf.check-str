@@ -47,6 +47,13 @@ test(`checkStr`, () => {
     expect(checkStr.isNumberNoPlusSign('+00.10')).toEqual(false);
     expect(checkStr.isNumberNoPlusSign('-00.10')).toEqual(true);
 
+    expect(checkStr.isNumberNoZeroPrefix()).toEqual(false); // 是否是数字(包含0)(无多余的0前缀)
+    expect(checkStr.isNumberNoZeroPrefix('')).toEqual(false);
+    expect(checkStr.isNumberNoZeroPrefix('-00.10')).toEqual(false);
+    expect(checkStr.isNumberNoZeroPrefix('+00.10')).toEqual(false);
+    expect(checkStr.isNumberNoZeroPrefix('-0.10')).toEqual(true);
+    expect(checkStr.isNumberNoZeroPrefix('+0.10')).toEqual(true);
+
     expect(checkStr.isInteger('-0')).toEqual(true); // 是否是整数(包含0)
     expect(checkStr.isInteger('-1')).toEqual(true);
     expect(checkStr.isInteger('1')).toEqual(true);
@@ -92,27 +99,19 @@ test(`checkStr`, () => {
     expect(checkStr.isNegativeInteger('+0010')).toEqual(false);
     expect(checkStr.isNegativeInteger('-0010')).toEqual(true);
 
-    expect(checkStr.isFloat('0.00', 2)).toEqual(true); // 是否是浮点数(默认两位)(包含0)
-    expect(checkStr.isFloat('10.000', 3)).toEqual(true);
-    expect(checkStr.isFloat('00.10')).toEqual(true);
+    expect(checkStr.isFloat('0.00', 2)).toEqual(true); // 是否是浮点数(2位小数点)(包含0)
+    expect(checkStr.isFloat('10.000', 3)).toEqual(true); // 是否是浮点数(3位小数点)(包含0)
+    expect(checkStr.isFloat('00.10')).toEqual(true); // 是否是浮点数(不限位数)(包含0)
     expect(checkStr.isFloat('+00.10')).toEqual(true);
     expect(checkStr.isFloat('-00.10')).toEqual(true);
 
-    expect(checkStr.isFloatNoPlusSign('0.00', 2)).toEqual(true); // 是否是浮点数(默认两位)(包含0)(无正符号)
-    expect(checkStr.isFloatNoPlusSign('10.000', 3)).toEqual(true);
-    expect(checkStr.isFloatNoPlusSign('00.10')).toEqual(true);
+    expect(checkStr.isFloatNoPlusSign('0.00', 2)).toEqual(true); // 是否是浮点数(2位小数点)(包含0)(无正符号)
+    expect(checkStr.isFloatNoPlusSign('10.000', 3)).toEqual(true); // 是否是浮点数(3位小数点)(包含0)(无正符号)
+    expect(checkStr.isFloatNoPlusSign('00.10')).toEqual(true); // 是否是浮点数(不限位数)(包含0)(无正符号)
     expect(checkStr.isFloatNoPlusSign('+00.10')).toEqual(false);
     expect(checkStr.isFloatNoPlusSign('-00.10')).toEqual(true);
 
-    // expect(checkStr.isFloatNoLimitDigit('10.00000000')).toEqual(true); // 是否是浮点数(不限位数)(包含0)
-    // expect(checkStr.isFloatNoLimitDigit('-0010.00000000')).toEqual(true);
-    // expect(checkStr.isFloatNoLimitDigit('+0010.00000000')).toEqual(true);
-    //
-    // expect(checkStr.isFloatNoLimitDigitNoPlusSign('10.00000000')).toEqual(true); // 是否是浮点数(不限位数)(包含0)(无正符号)
-    // expect(checkStr.isFloatNoLimitDigitNoPlusSign('-0010.00000000')).toEqual(true);
-    // expect(checkStr.isFloatNoLimitDigitNoPlusSign('+0010.00000000')).toEqual(false);
-
-    expect(checkStr.isPositiveFloat('', 2)).toEqual(false); // 是否是正浮点数(默认两位)(不包含0)
+    expect(checkStr.isPositiveFloat('', 2)).toEqual(false); // 是否是正浮点数(2位小数点)(不包含0)
     expect(checkStr.isPositiveFloat('呵呵', 2)).toEqual(false);
     expect(checkStr.isPositiveFloat('0.00', 2)).toEqual(false);
     expect(checkStr.isPositiveFloat('0.01', 2)).toEqual(true);
@@ -120,35 +119,26 @@ test(`checkStr`, () => {
     expect(checkStr.isPositiveFloat('+10.000', 3)).toEqual(true);
     expect(checkStr.isPositiveFloat('-10.000', 3)).toEqual(false);
 
-    expect(checkStr.isPositiveFloatNoPlusSign('', 2)).toEqual(false); // 是否是正浮点数(默认两位)(不包含0)(无正符号)
+    expect(checkStr.isPositiveFloatNoPlusSign('', 2)).toEqual(false); // 是否是正浮点数(2位小数点)(不包含0)(无正符号)
     expect(checkStr.isPositiveFloatNoPlusSign('呵呵', 2)).toEqual(false);
     expect(checkStr.isPositiveFloatNoPlusSign('0.00', 2)).toEqual(false);
     expect(checkStr.isPositiveFloatNoPlusSign('0.01', 2)).toEqual(true);
-    expect(checkStr.isPositiveFloatNoPlusSign('10.000', 3)).toEqual(true);
+    expect(checkStr.isPositiveFloatNoPlusSign('10.000', 3)).toEqual(true); // 是否是正浮点数(3位小数点)(不包含0)(无正符号)
     expect(checkStr.isPositiveFloatNoPlusSign('+10.000', 3)).toEqual(false);
-    expect(checkStr.isPositiveFloatNoPlusSign('-10.000', 3)).toEqual(false);
+    expect(checkStr.isPositiveFloatNoPlusSign('-10.000000')).toEqual(false); // 是否是正浮点数(不限位数)(不包含0)(无正符号)
+    expect(checkStr.isPositiveFloatNoPlusSign('10.00000000')).toEqual(true);
+    expect(checkStr.isPositiveFloatNoPlusSign('-10.00000000')).toEqual(false);
+    expect(checkStr.isPositiveFloatNoPlusSign('-010.00000000')).toEqual(false);
+    expect(checkStr.isPositiveFloatNoPlusSign('+10.00000000')).toEqual(false);
+    expect(checkStr.isPositiveFloatNoPlusSign('+010.00000000')).toEqual(false);
 
-    // expect(checkStr.isPositiveFloatNoLimitDigit('10.00000000')).toEqual(true); // 是否是正浮点数(不限位数)(不包含0)
-    // expect(checkStr.isPositiveFloatNoLimitDigit('-10.00000000')).toEqual(false);
-    // expect(checkStr.isPositiveFloatNoLimitDigit('-010.00000000')).toEqual(false);
-    // expect(checkStr.isPositiveFloatNoLimitDigit('+10.00000000')).toEqual(true);
-    // expect(checkStr.isPositiveFloatNoLimitDigit('+010.00000000')).toEqual(true);
-    //
-    // expect(checkStr.isPositiveFloatNoLimitDigitNoPlusSign('')).toEqual(false); // 是否是正浮点数(不限位数)(不包含0)(无正符号)
-    // expect(checkStr.isPositiveFloatNoLimitDigitNoPlusSign('10.00000000')).toEqual(true);
-    // expect(checkStr.isPositiveFloatNoLimitDigitNoPlusSign('-10.00000000')).toEqual(false);
-    // expect(checkStr.isPositiveFloatNoLimitDigitNoPlusSign('-010.00000000')).toEqual(false);
-    // expect(checkStr.isPositiveFloatNoLimitDigitNoPlusSign('+10.00000000')).toEqual(false);
-    // expect(checkStr.isPositiveFloatNoLimitDigitNoPlusSign('+010.00000000')).toEqual(false);
-
-    expect(checkStr.isNegativeFloat('', 2)).toEqual(false); // 是否是指定位数的负浮点数
+    expect(checkStr.isNegativeFloat('', 2)).toEqual(false); // 是否是负浮点数(2位小数点)(不包含0)
     expect(checkStr.isNegativeFloat('呵呵', 2)).toEqual(false);
-    expect(checkStr.isNegativeFloat('-0.00', 2)).toEqual(false); // 负浮点数不包含0
+    expect(checkStr.isNegativeFloat('-0.00', 2)).toEqual(false);
     expect(checkStr.isNegativeFloat('-0.01', 2)).toEqual(true);
-    expect(checkStr.isNegativeFloat('-10.000', 3)).toEqual(true);
-
-    // expect(checkStr.isNegativeFloatNoLimitDigit('10.00000000')).toEqual(false); // 是否是不限位数的负浮点数
-    // expect(checkStr.isNegativeFloatNoLimitDigit('-10.00000000')).toEqual(true);
+    expect(checkStr.isNegativeFloat('-10.000', 3)).toEqual(true); // 是否是负浮点数(3位小数点)(不包含0)
+    expect(checkStr.isNegativeFloat('10.00000000')).toEqual(false); // 是否是负浮点数(不限位数)(不包含0)
+    expect(checkStr.isNegativeFloat('-10.00000000')).toEqual(true);
 
     expect(checkStr.isPhoneNum('15111111111')).toEqual(true); // 是否是手机号(复杂验证)
     expect(checkStr.isPhoneNumEasy('15111111111')).toEqual(true); // 是否是手机号(简单验证)
