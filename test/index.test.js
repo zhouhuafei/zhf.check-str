@@ -54,7 +54,8 @@ test(`checkStr`, () => {
     expect(checkStr.isNumberNoZeroPrefix('-0.10')).toEqual(true);
     expect(checkStr.isNumberNoZeroPrefix('+0.10')).toEqual(true);
     expect(checkStr.isNumberNoZeroPrefix('0.10')).toEqual(true);
-    expect(checkStr.isNumberNoZeroPrefix('00.10')).toEqual(false);
+    expect(checkStr.isNumberNoZeroPrefix('00.')).toEqual(false);
+    expect(checkStr.isNumberNoZeroPrefix('.10')).toEqual(false);
 
     expect(checkStr.isInteger('-0')).toEqual(true); // 是否是整数(包含0)
     expect(checkStr.isInteger('-1')).toEqual(true);
