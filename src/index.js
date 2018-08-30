@@ -44,6 +44,7 @@
             value = handleValue(value); // 转成字符串并去除首尾空格
             const reg = /^[-+]?\d+(\.\d+)?$/;
             const isNumber = reg.test(value); // 先通过数字的验证
+            // 以下封装成函数。待续...
             let result = false;
             if (isNumber) { // 是数字
                 if (value[0] === '+' || value[0] === '-') { // 剔除符号（+，-）
