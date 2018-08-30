@@ -39,6 +39,16 @@
             const reg = /^[-]?\d+(\.\d+)?$/;
             return reg.test(handleValue(value));
         },
+        // 是否是数字(包含0)(无多余的0前缀)
+        isNumberNoZeroPrefix(value) {
+            value = handleValue(value); // 转成字符串并去除首尾空格
+            const reg = /^[-+]?\d+(\.\d+)?$/;
+            const isNumber = reg.test(value); // 先通过数字的验证
+            if (isNumber && (value[0] === '+' || value[0] === '-')) { // 剔除符号（+，-）
+                value = value.substring(1);
+            }
+            return value.split('.')[0].length > 0 && value[0] !== '0'; // 如果小数点前面的数字位数大于1，且第一个数字不是0，则表示无0前缀。
+        },
         // 是否是整数(包含0)
         isInteger(value) {
             const reg = /^[-+]?\d+$/;
