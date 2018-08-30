@@ -88,6 +88,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(handleValue(value));
         },
 
+        // 是否是整数(包含0)(无多余的0前缀) 待续...
         // 是否是正整数(不包含0)
         isPositiveInteger: function isPositiveInteger(value) {
             var reg = /^[+]?0*[1-9]\d*$/;
@@ -100,12 +101,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(handleValue(value));
         },
 
+        // 是否是正整数(不包含0)(无多余的0前缀) 待续...
         // 是否是负整数(不包含0)
         isNegativeInteger: function isNegativeInteger(value) {
             var reg = /^-0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
 
+        // 是否是负整数(不包含0)(无多余的0前缀) 待续...
         // 是否是浮点数(默认不限位数)(包含0)
         isFloat: function isFloat(value, place) {
             if (isNaN(place) || !isNaN(place) && Number(place) < 1) {
@@ -126,6 +129,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(handleValue(value));
         },
 
+        // 是否是浮点数(默认不限位数)(包含0)(无多余的0前缀) 待续...
         // 是否是正浮点数(默认不限位数)(不包含0)
         isPositiveFloat: function isPositiveFloat(value, place) {
             if (isNaN(place) || !isNaN(place) && Number(place) < 1) {
@@ -154,6 +158,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(v);
         },
 
+        // 是否是正浮点数(默认不限位数)(不包含0)(无多余的0前缀) 待续...
         // 是否是负浮点数(默认不限位数)(不包含0)
         isNegativeFloat: function isNegativeFloat(value, place) {
             if (isNaN(place) || !isNaN(place) && Number(place) < 1) {
@@ -168,6 +173,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(v);
         },
 
+        // 是否是负浮点数(默认不限位数)(不包含0)(无多余的0前缀) 待续...
         // 是否是手机号(复杂验证)
         isPhoneNum: function isPhoneNum(value) {
             var reg = /^1[3456789]\d{9}$/;
