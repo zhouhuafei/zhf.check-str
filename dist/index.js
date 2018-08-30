@@ -56,6 +56,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var reg = /^[-+]?\d+(\.\d+)?$/;
             var isNumber = reg.test(value); // 先通过数字的验证
             // 以下封装成函数。待续...
+            function noZeroPrefix(isPassRegExp, value) {}
+
             var result = false;
             if (isNumber) {
                 // 是数字
