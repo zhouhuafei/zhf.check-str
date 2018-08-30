@@ -12,7 +12,8 @@
 })('checkStr', function () {
     function handleValue(value) {
         // return value.toString().replace(/(^\s*)|(\s*$)/g, '');
-        return value.toString().trim(); // 去首尾空格
+        // return value.toString().trim(); // 去首尾空格，null和undefined没有toString方法也没有valueOf方法
+        return String(value).trim(); // 去首尾空格
     }
 
     return {
@@ -28,38 +29,72 @@
             }
             return value === '0';
         },
-        // 是否是数字
+        // 是否是数字(包含0)
         isNumber(value) {
-            const reg = /^(-)?\d+(\.\d+)?$/;
+            const reg = /^[-+]?\d+(\.\d+)?$/;
             return reg.test(handleValue(value));
         },
-        // 是否是整数 包含0
+        // 是否是数字(包含0)(无正符号)
+        isNumberNoPlusSign(value) {
+            const reg = /^[-]?\d+(\.\d+)?$/;
+            return reg.test(handleValue(value));
+        },
+        // 是否是整数(包含0)
         isInteger(value) {
+            const reg = /^[-+]?\d+$/;
+            return reg.test(handleValue(value));
+        },
+        // 是否是整数(包含0)(无正符号)
+        isIntegerNoPlusSign(value) {
             const reg = /^(-)?\d+$/;
             return reg.test(handleValue(value));
         },
-        // 是否是正整数 不包含0
+        // 是否是正整数(不包含0)
         isPositiveInteger(value) {
-            const reg = /^[1-9]\d*$/;
+            const reg = /^[+]?0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
-        // 是否是负整数 不包含0
+        // 是否是正整数(不包含0)(无正符号)
+        isPositiveIntegerNoPlusSign(value) {
+            const reg = /^0*[1-9]\d*$/;
+            return reg.test(handleValue(value));
+        },
+        // 是否是负整数(不包含0)
         isNegativeInteger(value) {
-            const reg = /^-[1-9]\d*$/;
+            const reg = /^-0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
-        // 是否是浮点数(默认两位) 包含0
+        // 是否是浮点数(默认两位)(包含0)
         isFloat(value, place = 2) {
-            const reg = new RegExp(`^(-)?\\d+\\.\\d{${place}}$`);
+            const reg = new RegExp(`^[-+]?\\d+\\.\\d{${place}}$`);
             return reg.test(handleValue(value));
         },
-        // 是否是浮点数(不限位数) 包含0
+        // 是否是浮点数(默认两位)(包含0)(无正符号)
+        isFloatNoPlusSign(value, place = 2) {
+            const reg = new RegExp(`^[-]?\\d+\\.\\d{${place}}$`);
+            return reg.test(handleValue(value));
+        },
+        // 是否是浮点数(不限位数)(包含0)
         isFloatNoLimitDigit(value) {
-            const reg = new RegExp(`^(-)?\\d+\\.\\d+$`);
+            const reg = new RegExp(`^[-+]?\\d+\\.\\d+$`);
             return reg.test(handleValue(value));
         },
-        // 是否是正浮点数(默认两位) 不包含0
+        // 是否是浮点数(不限位数)(包含0)(无正符号)
+        isFloatNoLimitDigitNoPlusSign(value) {
+            const reg = new RegExp(`^[-]?\\d+\\.\\d+$`);
+            return reg.test(handleValue(value));
+        },
+        // 是否是正浮点数(默认两位)(不包含0)
         isPositiveFloat(value, place = 2) {
+            const reg = new RegExp(`^[+]?\\d+\\.\\d{${place}}$`);
+            const v = handleValue(value);
+            if (Number(v) === 0) {
+                return false;
+            }
+            return reg.test(v);
+        },
+        // 是否是正浮点数(默认两位)(不包含0)(无正符号)
+        isPositiveFloatNoPlusSign(value, place = 2) {
             const reg = new RegExp(`^\\d+\\.\\d{${place}}$`);
             const v = handleValue(value);
             if (Number(v) === 0) {
@@ -67,8 +102,17 @@
             }
             return reg.test(v);
         },
-        // 是否是正浮点数(不限位数) 不包含0
+        // 是否是正浮点数(不限位数)(不包含0)
         isPositiveFloatNoLimitDigit(value) {
+            const reg = new RegExp(`^[+]?\\d+\\.\\d+$`);
+            const v = handleValue(value);
+            if (Number(v) === 0) {
+                return false;
+            }
+            return reg.test(v);
+        },
+        // 是否是正浮点数(不限位数)(不包含0)(无正符号)
+        isPositiveFloatNoLimitDigitNoPlusSign(value) {
             const reg = new RegExp(`^\\d+\\.\\d+$`);
             const v = handleValue(value);
             if (Number(v) === 0) {
@@ -76,7 +120,7 @@
             }
             return reg.test(v);
         },
-        // 是否是负浮点数(默认两位) 不包含0
+        // 是否是负浮点数(默认两位)(不包含0)
         isNegativeFloat(value, place = 2) {
             const reg = new RegExp(`^-\\d+\\.\\d{${place}}$`);
             const v = handleValue(value);
@@ -85,7 +129,7 @@
             }
             return reg.test(v);
         },
-        // 是否是负浮点数(不限位数) 不包含0
+        // 是否是负浮点数(不限位数)(不包含0)
         isNegativeFloatNoLimitDigit(value) {
             const reg = new RegExp(`^-\\d+\\.\\d+$`);
             const v = handleValue(value);

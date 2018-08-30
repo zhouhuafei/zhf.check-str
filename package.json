@@ -1,6 +1,6 @@
 {
     "name": "zhf.check-str",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "用于验证表单form相关的标签对应的value里输入的都是什么值",
     "main": "dist/index.min.js",
     "scripts": {

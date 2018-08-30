@@ -19,7 +19,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })('checkStr', function () {
     function handleValue(value) {
         // return value.toString().replace(/(^\s*)|(\s*$)/g, '');
-        return value.toString().trim(); // 去首尾空格
+        // return value.toString().trim(); // 去首尾空格，null和undefined没有toString方法也没有valueOf方法
+        return String(value).trim(); // 去首尾空格
     }
 
     return {
@@ -37,46 +38,90 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return value === '0';
         },
 
-        // 是否是数字
+        // 是否是数字(包含0)
         isNumber: function isNumber(value) {
-            var reg = /^(-)?\d+(\.\d+)?$/;
+            var reg = /^[-+]?\d+(\.\d+)?$/;
             return reg.test(handleValue(value));
         },
 
-        // 是否是整数 包含0
+        // 是否是数字(包含0)(无正符号)
+        isNumberNoPlusSign: function isNumberNoPlusSign(value) {
+            var reg = /^[-]?\d+(\.\d+)?$/;
+            return reg.test(handleValue(value));
+        },
+
+        // 是否是整数(包含0)
         isInteger: function isInteger(value) {
+            var reg = /^[-+]?\d+$/;
+            return reg.test(handleValue(value));
+        },
+
+        // 是否是整数(包含0)(无正符号)
+        isIntegerNoPlusSign: function isIntegerNoPlusSign(value) {
             var reg = /^(-)?\d+$/;
             return reg.test(handleValue(value));
         },
 
-        // 是否是正整数 不包含0
+        // 是否是正整数(不包含0)
         isPositiveInteger: function isPositiveInteger(value) {
-            var reg = /^[1-9]\d*$/;
+            var reg = /^[+]?0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
 
-        // 是否是负整数 不包含0
+        // 是否是正整数(不包含0)(无正符号)
+        isPositiveIntegerNoPlusSign: function isPositiveIntegerNoPlusSign(value) {
+            var reg = /^0*[1-9]\d*$/;
+            return reg.test(handleValue(value));
+        },
+
+        // 是否是负整数(不包含0)
         isNegativeInteger: function isNegativeInteger(value) {
-            var reg = /^-[1-9]\d*$/;
+            var reg = /^-0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
 
-        // 是否是浮点数(默认两位) 包含0
+        // 是否是浮点数(默认两位)(包含0)
         isFloat: function isFloat(value) {
             var place = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
 
-            var reg = new RegExp('^(-)?\\d+\\.\\d{' + place + '}$');
+            var reg = new RegExp('^[-+]?\\d+\\.\\d{' + place + '}$');
             return reg.test(handleValue(value));
         },
 
-        // 是否是浮点数(不限位数) 包含0
+        // 是否是浮点数(默认两位)(包含0)(无正符号)
+        isFloatNoPlusSign: function isFloatNoPlusSign(value) {
+            var place = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+
+            var reg = new RegExp('^[-]?\\d+\\.\\d{' + place + '}$');
+            return reg.test(handleValue(value));
+        },
+
+        // 是否是浮点数(不限位数)(包含0)
         isFloatNoLimitDigit: function isFloatNoLimitDigit(value) {
-            var reg = new RegExp('^(-)?\\d+\\.\\d+$');
+            var reg = new RegExp('^[-+]?\\d+\\.\\d+$');
             return reg.test(handleValue(value));
         },
 
-        // 是否是正浮点数(默认两位) 不包含0
+        // 是否是浮点数(不限位数)(包含0)(无正符号)
+        isFloatNoLimitDigitNoPlusSign: function isFloatNoLimitDigitNoPlusSign(value) {
+            var reg = new RegExp('^[-]?\\d+\\.\\d+$');
+            return reg.test(handleValue(value));
+        },
+
+        // 是否是正浮点数(默认两位)(不包含0)
         isPositiveFloat: function isPositiveFloat(value) {
+            var place = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+
+            var reg = new RegExp('^[+]?\\d+\\.\\d{' + place + '}$');
+            var v = handleValue(value);
+            if (Number(v) === 0) {
+                return false;
+            }
+            return reg.test(v);
+        },
+
+        // 是否是正浮点数(默认两位)(不包含0)(无正符号)
+        isPositiveFloatNoPlusSign: function isPositiveFloatNoPlusSign(value) {
             var place = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
 
             var reg = new RegExp('^\\d+\\.\\d{' + place + '}$');
@@ -87,8 +132,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(v);
         },
 
-        // 是否是正浮点数(不限位数) 不包含0
+        // 是否是正浮点数(不限位数)(不包含0)
         isPositiveFloatNoLimitDigit: function isPositiveFloatNoLimitDigit(value) {
+            var reg = new RegExp('^[+]?\\d+\\.\\d+$');
+            var v = handleValue(value);
+            if (Number(v) === 0) {
+                return false;
+            }
+            return reg.test(v);
+        },
+
+        // 是否是正浮点数(不限位数)(不包含0)(无正符号)
+        isPositiveFloatNoLimitDigitNoPlusSign: function isPositiveFloatNoLimitDigitNoPlusSign(value) {
             var reg = new RegExp('^\\d+\\.\\d+$');
             var v = handleValue(value);
             if (Number(v) === 0) {
@@ -97,7 +152,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(v);
         },
 
-        // 是否是负浮点数(默认两位) 不包含0
+        // 是否是负浮点数(默认两位)(不包含0)
         isNegativeFloat: function isNegativeFloat(value) {
             var place = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
 
@@ -109,7 +164,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(v);
         },
 
-        // 是否是负浮点数(不限位数) 不包含0
+        // 是否是负浮点数(不限位数)(不包含0)
         isNegativeFloatNoLimitDigit: function isNegativeFloatNoLimitDigit(value) {
             var reg = new RegExp('^-\\d+\\.\\d+$');
             var v = handleValue(value);
