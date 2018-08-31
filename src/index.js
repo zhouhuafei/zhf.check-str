@@ -140,8 +140,8 @@
         isFloat(value, place) {
             return this.isFloatNoPlusSign(value, place) && this.isFloatNoZeroPrefix(value, place);
         },
-        // 是否是正浮点数(默认不限位数)(不包含0)
-        isPositiveFloat(value, place) {
+        // 是否是正浮点数(默认不限位数)(不包含0)(有无正符号以及有无多余的0前缀都可验证通过)
+        isPositiveFloatDefault(value, place) {
             if (isNaN(place) || (!isNaN(place) && Number(place) < 1)) { // 如果是非法字符或者数值小于1，则不限制位数
                 place = `1,`;
             }
@@ -164,9 +164,16 @@
             }
             return reg.test(v);
         },
-        // 是否是正浮点数(默认不限位数)(不包含0)(无多余的0前缀) 待续...
-        // 是否是负浮点数(默认不限位数)(不包含0)
-        isNegativeFloat(value, place) {
+        // 是否是正浮点数(默认不限位数)(不包含0)(无多余的0前缀)
+        isPositiveFloatNoZeroPrefix(value, place) {
+            return noZeroPrefix(this.isPositiveFloatDefault(value, place), value);
+        },
+        // 是否是正浮点数(默认不限位数)(不包含0)(无正符号)(无多余的0前缀)
+        isPositiveFloat(value, place) {
+            return this.isPositiveFloatNoPlusSign(value, place) && this.isPositiveFloatNoZeroPrefix(value, place);
+        },
+        // 是否是负浮点数(默认不限位数)(不包含0)(有无多余的0前缀都可验证通过)
+        isNegativeFloatDefault(value, place) {
             if (isNaN(place) || (!isNaN(place) && Number(place) < 1)) { // 如果是非法字符或者数值小于1，则不限制位数
                 place = `1,`;
             }
@@ -177,7 +184,10 @@
             }
             return reg.test(v);
         },
-        // 是否是负浮点数(默认不限位数)(不包含0)(无多余的0前缀) 待续...
+        // 是否是负浮点数(默认不限位数)(不包含0)(无多余的0前缀)
+        isNegativeFloat(value, place) {
+            return noZeroPrefix(this.isNegativeFloatDefault(value, place), value);
+        },
         // 是否是手机号(复杂验证)
         isPhoneNum(value) {
             const reg = /^1[3456789]\d{9}$/;
