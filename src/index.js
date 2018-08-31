@@ -86,8 +86,8 @@
         isInteger(value) {
             return this.isIntegerNoPlusSign(value) && this.isIntegerNoZeroPrefix(value);
         },
-        // 是否是正整数(不包含0)
-        isPositiveInteger(value) {
+        // 是否是正整数(不包含0)(有无正符号以及有无多余的0前缀都可验证通过)
+        isPositiveIntegerDefault(value) {
             const reg = /^[+]?0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
@@ -96,13 +96,26 @@
             const reg = /^0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
-        // 是否是正整数(不包含0)(无多余的0前缀) 待续...
-        // 是否是负整数(不包含0)
-        isNegativeInteger(value) {
+        // 是否是正整数(不包含0)(无多余的0前缀)
+        isPositiveIntegerNoZeroPrefix(value) {
+            const reg = /^[+]?[1-9]\d*$/;
+            return reg.test(handleValue(value));
+        },
+        // 是否是正整数(不包含0)(无正符号)(无多余的0前缀)
+        isPositiveInteger(value) {
+            const reg = /^[1-9]\d*$/;
+            return reg.test(handleValue(value));
+        },
+        // 是否是负整数(不包含0)(有无多余的0前缀都可验证通过)
+        isNegativeIntegerDefault(value) {
             const reg = /^-0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
-        // 是否是负整数(不包含0)(无多余的0前缀) 待续...
+        // 是否是负整数(不包含0)(无多余的0前缀)
+        isNegativeInteger(value) {
+            const reg = /^-[1-9]\d*$/;
+            return reg.test(handleValue(value));
+        },
         // 是否是浮点数(默认不限位数)(包含0)
         isFloat(value, place) {
             if (isNaN(place) || (!isNaN(place) && Number(place) < 1)) { // 如果是非法字符或者数值小于1，则不限制位数

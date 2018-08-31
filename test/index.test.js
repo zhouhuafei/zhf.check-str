@@ -89,6 +89,8 @@ test(`checkStr`, () => {
     expect(checkStr.isIntegerDefault('0010')).toEqual(true);
     expect(checkStr.isIntegerDefault('+0010')).toEqual(true);
     expect(checkStr.isIntegerDefault('-0010')).toEqual(true);
+    expect(checkStr.isIntegerDefault('+ 0010')).toEqual(false);
+    expect(checkStr.isIntegerDefault('- 0010')).toEqual(false);
 
     expect(checkStr.isIntegerNoPlusSign('10')).toEqual(true); // 是否是整数(包含0)(无正符号)
     expect(checkStr.isIntegerNoPlusSign('+10')).toEqual(false);
@@ -127,13 +129,13 @@ test(`checkStr`, () => {
     expect(checkStr.isInteger('+0010')).toEqual(false);
     expect(checkStr.isInteger('-0010')).toEqual(false);
 
-    expect(checkStr.isPositiveInteger('0')).toEqual(false); // 是否是正整数(不包含0)
-    expect(checkStr.isPositiveInteger('10')).toEqual(true);
-    expect(checkStr.isPositiveInteger('+10')).toEqual(true);
-    expect(checkStr.isPositiveInteger('-10')).toEqual(false);
-    expect(checkStr.isPositiveInteger('0010')).toEqual(true);
-    expect(checkStr.isPositiveInteger('+0010')).toEqual(true);
-    expect(checkStr.isPositiveInteger('-0010')).toEqual(false);
+    expect(checkStr.isPositiveIntegerDefault('0')).toEqual(false); // 是否是正整数(不包含0)(有无正符号以及有无多余的0前缀都可验证通过)
+    expect(checkStr.isPositiveIntegerDefault('10')).toEqual(true);
+    expect(checkStr.isPositiveIntegerDefault('+10')).toEqual(true);
+    expect(checkStr.isPositiveIntegerDefault('-10')).toEqual(false);
+    expect(checkStr.isPositiveIntegerDefault('0010')).toEqual(true);
+    expect(checkStr.isPositiveIntegerDefault('+0010')).toEqual(true);
+    expect(checkStr.isPositiveIntegerDefault('-0010')).toEqual(false);
 
     expect(checkStr.isPositiveIntegerNoPlusSign('0')).toEqual(false); // 是否是正整数(不包含0)(无正符号)
     expect(checkStr.isPositiveIntegerNoPlusSign('10')).toEqual(true);
@@ -143,11 +145,37 @@ test(`checkStr`, () => {
     expect(checkStr.isPositiveIntegerNoPlusSign('+0010')).toEqual(false);
     expect(checkStr.isPositiveIntegerNoPlusSign('-0010')).toEqual(false);
 
-    expect(checkStr.isNegativeInteger('-0')).toEqual(false); // 是否是负整数(不包含0)
+    expect(checkStr.isPositiveIntegerNoZeroPrefix('0')).toEqual(false); // 是否是正整数(不包含0)(无多余的0前缀)
+    expect(checkStr.isPositiveIntegerNoZeroPrefix('10')).toEqual(true);
+    expect(checkStr.isPositiveIntegerNoZeroPrefix('+10')).toEqual(true);
+    expect(checkStr.isPositiveIntegerNoZeroPrefix('-10')).toEqual(false);
+    expect(checkStr.isPositiveIntegerNoZeroPrefix('0010')).toEqual(false);
+    expect(checkStr.isPositiveIntegerNoZeroPrefix('+0010')).toEqual(false);
+    expect(checkStr.isPositiveIntegerNoZeroPrefix('-0010')).toEqual(false);
+    expect(checkStr.isPositiveIntegerNoZeroPrefix('10.00')).toEqual(false);
+
+    expect(checkStr.isPositiveInteger('0')).toEqual(false); // 是否是正整数(不包含0)(无正符号)(无多余的0前缀)
+    expect(checkStr.isPositiveInteger('10')).toEqual(true);
+    expect(checkStr.isPositiveInteger('+10')).toEqual(false);
+    expect(checkStr.isPositiveInteger('-10')).toEqual(false);
+    expect(checkStr.isPositiveInteger('0010')).toEqual(false);
+    expect(checkStr.isPositiveInteger('+0010')).toEqual(false);
+    expect(checkStr.isPositiveInteger('-0010')).toEqual(false);
+    expect(checkStr.isPositiveInteger('10.00')).toEqual(false);
+
+    expect(checkStr.isNegativeIntegerDefault('-0')).toEqual(false); // 是否是负整数(不包含0)(有无多余的0前缀都可验证通过)
+    expect(checkStr.isNegativeIntegerDefault('-10')).toEqual(true);
+    expect(checkStr.isNegativeIntegerDefault('0010')).toEqual(false);
+    expect(checkStr.isNegativeIntegerDefault('+0010')).toEqual(false);
+    expect(checkStr.isNegativeIntegerDefault('-0010')).toEqual(true);
+    expect(checkStr.isNegativeIntegerDefault('-1.00')).toEqual(false);
+
+    expect(checkStr.isNegativeInteger('-0')).toEqual(false); // 是否是负整数(不包含0)(无多余的0前缀)
     expect(checkStr.isNegativeInteger('-10')).toEqual(true);
     expect(checkStr.isNegativeInteger('0010')).toEqual(false);
     expect(checkStr.isNegativeInteger('+0010')).toEqual(false);
-    expect(checkStr.isNegativeInteger('-0010')).toEqual(true);
+    expect(checkStr.isNegativeInteger('-0010')).toEqual(false);
+    expect(checkStr.isNegativeInteger('-1.00')).toEqual(false);
 
     expect(checkStr.isFloat('0.00', 2)).toEqual(true); // 是否是浮点数(2位小数点)(包含0)
     expect(checkStr.isFloat('10.000', 3)).toEqual(true); // 是否是浮点数(3位小数点)(包含0)

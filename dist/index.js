@@ -105,8 +105,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return this.isIntegerNoPlusSign(value) && this.isIntegerNoZeroPrefix(value);
         },
 
-        // 是否是正整数(不包含0)
-        isPositiveInteger: function isPositiveInteger(value) {
+        // 是否是正整数(不包含0)(有无正符号以及有无多余的0前缀都可验证通过)
+        isPositiveIntegerDefault: function isPositiveIntegerDefault(value) {
             var reg = /^[+]?0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
@@ -117,14 +117,30 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return reg.test(handleValue(value));
         },
 
-        // 是否是正整数(不包含0)(无多余的0前缀) 待续...
-        // 是否是负整数(不包含0)
-        isNegativeInteger: function isNegativeInteger(value) {
+        // 是否是正整数(不包含0)(无多余的0前缀)
+        isPositiveIntegerNoZeroPrefix: function isPositiveIntegerNoZeroPrefix(value) {
+            var reg = /^[+]?[1-9]\d*$/;
+            return reg.test(handleValue(value));
+        },
+
+        // 是否是正整数(不包含0)(无正符号)(无多余的0前缀)
+        isPositiveInteger: function isPositiveInteger(value) {
+            var reg = /^[1-9]\d*$/;
+            return reg.test(handleValue(value));
+        },
+
+        // 是否是负整数(不包含0)(有无多余的0前缀都可验证通过)
+        isNegativeIntegerDefault: function isNegativeIntegerDefault(value) {
             var reg = /^-0*[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
 
-        // 是否是负整数(不包含0)(无多余的0前缀) 待续...
+        // 是否是负整数(不包含0)(无多余的0前缀)
+        isNegativeInteger: function isNegativeInteger(value) {
+            var reg = /^-[1-9]\d*$/;
+            return reg.test(handleValue(value));
+        },
+
         // 是否是浮点数(默认不限位数)(包含0)
         isFloat: function isFloat(value, place) {
             if (isNaN(place) || !isNaN(place) && Number(place) < 1) {
