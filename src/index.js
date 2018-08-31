@@ -16,6 +16,27 @@
         return String(value).trim(); // 去首尾空格
     }
 
+    function noZeroPrefix(isPassRegExp, value) {
+        value = handleValue(value); // 去首尾空格，如此，下面的判断小数点前字符的位数以及第一个字符是否为0才精准。
+        let result = false;
+        if (isPassRegExp) { // 是数字
+            if (value[0] === '+' || value[0] === '-') { // 剔除符号（+，-）
+                value = value.substring(1);
+            }
+            value = value.split('.');
+            // 如果小数点前面的数字位数大于1，且第一个数字不是0，则表示无0前缀。(需去除首尾空格，此处判定才精准)
+            if (value[0].length > 1) {
+                if (value[0][0] !== '0') {
+                    result = true;
+                }
+            }
+            if (value[0].length === 1) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     return {
         // 是否是空
         isEmpty(value) {
@@ -29,8 +50,8 @@
             }
             return value === '0';
         },
-        // 是否是数字(包含0)
-        isNumber(value) {
+        // 是否是数字(包含0)(有无正符号以及有无多余的0前缀都可验证通过)
+        isNumberDefault(value) {
             const reg = /^[-+]?\d+(\.\d+)?$/;
             return reg.test(handleValue(value));
         },
@@ -41,33 +62,14 @@
         },
         // 是否是数字(包含0)(无多余的0前缀)
         isNumberNoZeroPrefix(value) {
-            value = handleValue(value); // 转成字符串并去除首尾空格
-            const reg = /^[-+]?\d+(\.\d+)?$/;
-            const isNumber = reg.test(value); // 先通过数字的验证
-            // 以下封装成函数。待续...
-            function noZeroPrefix(isPassRegExp, value) {
-            }
-
-            let result = false;
-            if (isNumber) { // 是数字
-                if (value[0] === '+' || value[0] === '-') { // 剔除符号（+，-）
-                    value = value.substring(1);
-                }
-                value = value.split('.');
-                // 如果小数点前面的数字位数大于1，且第一个数字不是0，则表示无0前缀。
-                if (value[0].length > 1) {
-                    if (value[0][0] !== '0') {
-                        result = true;
-                    }
-                }
-                if (value[0].length === 1) {
-                    result = true;
-                }
-            }
-            return result;
+            return noZeroPrefix(this.isNumberDefault(value), value);
         },
-        // 是否是整数(包含0)
-        isInteger(value) {
+        // 是否是数字(包含0)(无正符号)(无多余的0前缀)
+        isNumber(value) {
+            return this.isNumberNoPlusSign(value) && this.isNumberNoZeroPrefix(value);
+        },
+        // 是否是整数(包含0)(有无正符号以及有无多余的0前缀都可验证通过)
+        isIntegerDefault(value) {
             const reg = /^[-+]?\d+$/;
             return reg.test(handleValue(value));
         },
@@ -76,7 +78,14 @@
             const reg = /^(-)?\d+$/;
             return reg.test(handleValue(value));
         },
-        // 是否是整数(包含0)(无多余的0前缀) 待续...
+        // 是否是整数(包含0)(无多余的0前缀)
+        isIntegerNoZeroPrefix(value) {
+            return noZeroPrefix(this.isIntegerDefault(value), value);
+        },
+        // 是否是整数(包含0)(无正符号)(无多余的0前缀)
+        isInteger(value) {
+            return this.isIntegerNoPlusSign(value) && this.isIntegerNoZeroPrefix(value);
+        },
         // 是否是正整数(不包含0)
         isPositiveInteger(value) {
             const reg = /^[+]?0*[1-9]\d*$/;
