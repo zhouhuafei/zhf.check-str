@@ -116,8 +116,8 @@
             const reg = /^-[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
-        // 是否是浮点数(默认不限位数)(包含0)
-        isFloat(value, place) {
+        // 是否是浮点数(默认不限位数)(包含0)(有无正符号以及有无多余的0前缀都可验证通过)
+        isFloatDefault(value, place) {
             if (isNaN(place) || (!isNaN(place) && Number(place) < 1)) { // 如果是非法字符或者数值小于1，则不限制位数
                 place = `1,`;
             }
@@ -132,7 +132,14 @@
             const reg = new RegExp(`^[-]?\\d+\\.\\d{${place}}$`);
             return reg.test(handleValue(value));
         },
-        // 是否是浮点数(默认不限位数)(包含0)(无多余的0前缀) 待续...
+        // 是否是浮点数(默认不限位数)(包含0)(无多余的0前缀)
+        isFloatNoZeroPrefix(value, place) {
+            return noZeroPrefix(this.isFloatDefault(value, place), value);
+        },
+        // 是否是浮点数(默认不限位数)(包含0)(无正符号)(无多余的0前缀)
+        isFloat(value, place) {
+            return this.isFloatNoPlusSign(value, place) && this.isFloatNoZeroPrefix(value, place);
+        },
         // 是否是正浮点数(默认不限位数)(不包含0)
         isPositiveFloat(value, place) {
             if (isNaN(place) || (!isNaN(place) && Number(place) < 1)) { // 如果是非法字符或者数值小于1，则不限制位数
