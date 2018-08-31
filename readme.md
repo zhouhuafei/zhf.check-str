@@ -125,7 +125,7 @@ checkStr.isIntegerNoZeroPrefix('0010'); // false
 checkStr.isIntegerNoZeroPrefix('+0010'); // false
 checkStr.isIntegerNoZeroPrefix('-0010'); // false
 
-checkStr.isInteger('-0'); // true // 是否是整数(包含0)(无正符号)(无多余的0前缀)isInteger
+checkStr.isInteger('-0'); // true // 是否是整数(包含0)(无正符号)(无多余的0前缀)
 checkStr.isInteger('-1'); // true
 checkStr.isInteger('1'); // true
 checkStr.isInteger('1.0'); // false
