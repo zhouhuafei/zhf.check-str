@@ -106,6 +106,11 @@
             const reg = /^[1-9]\d*$/;
             return reg.test(handleValue(value));
         },
+        // 是否是自然数(包含0)(无正符号)(无多余的0前缀) - 0和正整数组成自然数
+        isNaturalNumber(value) {
+            const reg = /(^0$)|(^[1-9]\d*$)/;
+            return reg.test(handleValue(value));
+        },
         // 是否是负整数(不包含0)(有无多余的0前缀都可验证通过)
         isNegativeIntegerDefault(value) {
             const reg = /^-0*[1-9]\d*$/;
